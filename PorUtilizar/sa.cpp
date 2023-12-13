@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  // Leyendo archivos. (creo que se puede optimizar)
+  // Leyendo archivos. (creo que se puede optimizar).
   int_vector<> seq;
   for (int i = 1 ; i < cantArchivos + 1 ; i++) {
         stringstream ss;
@@ -50,7 +50,6 @@ int main(int argc, char** argv) {
             stringstream contenidoArchivo;
             contenidoArchivo << archivo.rdbuf();
             string contenido = contenidoArchivo.str();
-
             seq.resize(seq.size() + contenido.size() + 1);
             copy(contenido.begin(), contenido.end(), seq.begin() + seq.size() - contenido.size() - 1);
             seq[seq.size() - 1] = 0;

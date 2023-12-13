@@ -68,8 +68,7 @@ int main(int argc, char** argv) {
   algorithm::calculate_sa((const unsigned char*)seq.data(), n, sa);
 
   // Construyendo el FM-index.
-  csa_wt<wt_int<>> fm_index;
-  construct(fm_index, sa);
+  csa_wt<wt_int<>> fm_index(sa);
   
   cout << "Tamaño del FM-index " << size_in_mega_bytes(fm_index) << " MB." << endl;
 
