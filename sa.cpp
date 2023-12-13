@@ -5,6 +5,7 @@
 // Compilación: g++ -O3 -o sa sa.cpp -lsdsl -ldivsufsort -ldivsufsort64
 
 #include <sdsl/suffix_arrays.hpp>
+#include <sdsl/int_vector.hpp>
 #include <string>
 #include <iostream>
 #include <algorithm>
@@ -25,13 +26,13 @@ int main(int argc, char** argv) {
   string directorio;
   switch (dataset){
   case 0:
-    directorio = "/dblp/dblp5MB_";
+    directorio = "datasets/dblp/dblp5MB_";
     break;
   case 1:
-    directorio = "/proteins/proteins5MB_";
+    directorio = "datasets/proteins/proteins5MB_";
     break;
   case 2:
-    directorio = "/sources/sources5MB_";
+    directorio = "datasets/sources/sources5MB_";
     break;
   default:
     cout << "Dataset no válido." << endl;
@@ -49,17 +50,17 @@ int main(int argc, char** argv) {
             stringstream contenidoArchivo;
             contenidoArchivo << archivo.rdbuf();
             string contenido = contenidoArchivo.str();
-            for (char c : contenido) {
-                seq.push_back(c);
-            }
-            seq.push_back(0);
+
+            seq.resize(seq.size() + contenido.size() + 1);
+            copy(contenido.begin(), contenido.end(), seq.begin() + seq.size() - contenido.size() - 1);
+            seq[seq.size() - 1] = 0;
+
             archivo.close();
         } else {
             cout << "No se pudo abrir el archivo: " << nombreArchivo << endl;
             return 1;
         }
   }
-  seq.push_back(0);
   int32_t n = seq.size();
   
   // Construyendo el Suffix Array 
