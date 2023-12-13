@@ -20,3 +20,15 @@ FM_index::FM_index(const std::vector<std::string> &docs) {
     construct(fm_index, text);
 }
 
+std::vector<uint64_t> suffix_array::locate(const std::string &s){
+    uint64_t hi, lo;
+    lo = 0;
+    hi = N;
+    // FM index retorna dos strings? Uno para bwt el otro de SA
+    std::vector<int> L(n);
+    for (int i = 0; i < n; ++i) {
+        firstColumn[i] = i;
+    }
+
+
+}
