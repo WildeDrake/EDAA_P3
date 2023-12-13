@@ -1,6 +1,8 @@
 #ifndef SUFFIX_ARRAY
 #define SUFFIX_ARRAY
 
+#include <algorithm>
+#include <unordered_set>
 #include <cstdint>
 #include <string>
 #include <vector>

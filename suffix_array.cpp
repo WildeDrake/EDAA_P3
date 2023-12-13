@@ -1,11 +1,5 @@
-#include <algoritm>
-#include <cstdint>
-#include <string>
-#include <unordered_set>
-#include <vector>
-#include <sdsl/suffix_arrays.hpp>
-
 #include "suffix_array.hpp"
+
 
 suffix_array::suffix_array(const std::vector<std::string> &docs)
 {
@@ -26,6 +20,7 @@ suffix_array::suffix_array(const std::vector<std::string> &docs)
     SA.resize(N);
     sdsl::algorithm::calculate_sa((unsigned char *) text.c_str(), N, SA);
 }
+
 
 std::vector<uint64_t> suffix_array::locate(const std::string &s)
 {
