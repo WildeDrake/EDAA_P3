@@ -63,3 +63,8 @@ std::vector<uint64_t> suffix_array::locate(const std::string &s)
 
     return matches;
 }
+
+
+int suffix_array::size_in_mb() {
+    return size_in_mega_bytes(SA) + (doc_start.size()*sizeof(uint64_t) / 1048576) + (text.size() / 1048576);
+}

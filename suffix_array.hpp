@@ -17,8 +17,8 @@ class suffix_array
 
     public:
         suffix_array(const std::vector<std::string> &docs);
-
         std::vector<uint64_t> locate(const std::string &s);
+        int size_in_mb();
 };
 
 #endif
