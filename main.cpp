@@ -1,18 +1,21 @@
-#include "FM_index.hpp"
+// Sugiero patrón "AWHCRSG".
 
+#include "suffix_array.hpp"
+#include "FM_index.hpp"
 
 using namespace sdsl;
 using namespace std;
 
+
 int main(int argc, char** argv) {
     // Verificando argumentos.
-    if (argc != 3) {
-            cout << "Uso: " << argv[0] << " <dataset de 0 a 2> <cantidad de archivos>\n";
+    if (argc != 4) {
+            cout << "Uso: " << argv[0] << " <dataset de 0 a 2> <cantidad de archivos> <patrón>\n";
             return 1;
     }
     int dataset = stoi(argv[1]);
     int cantArchivos = stoi(argv[2]);
-
+    string patron = argv[3];
     // Seleccionando dataset.
     string directorio;
     switch (dataset){
@@ -29,7 +32,6 @@ int main(int argc, char** argv) {
         cout << "Dataset no válido." << endl;
         return 1;
     }
-
     // Leyendo archivos. (creo que se puede optimizar).
     vector<string> docs;
     for (int i = 1 ; i < cantArchivos + 1 ; i++) {
@@ -47,11 +49,26 @@ int main(int argc, char** argv) {
                 return 1;
             }
     }
-    FM_index fmi(docs);
-    cout << " 2 " << endl;
-    //vector<uint64_t> ocurrencias = fmi.locate("http://dx.doi.org/10.1006/jath.2002.3673");
 
-    //cout << "Ocurrencias: " << ocurrencias.size() << endl;
-    cout << "espacio: " << fmi.size() << endl;
+    // Buscando ocurrencias de un patron.
+    suffix_array SA(docs);
+    FM_index fmi(docs);
+    vector<uint64_t> ocurrencias1 = SA.locate(patron);
+    vector<uint64_t> ocurrencias2 = fmi.locate(patron);
+
+    cout << "Patrón: " << patron << endl;
+
+    cout << "Ocurrencias segun suffix_Array: ";
+    for (uint64_t i = 0 ; i < ocurrencias1.size() ; i++) {
+        cout << ocurrencias1[i]+1 << " ";
+    }
+    cout << endl;
+
+    cout << "Ocurrencias según FM_index    : ";
+    for (uint64_t i = 0 ; i < ocurrencias2.size() ; i++) {
+        cout << ocurrencias2[i]+1 << " ";
+    }
+    cout << endl;
+
   return 0;
 }
