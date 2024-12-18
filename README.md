@@ -1,4 +1,4 @@
-# Proyecto de Estructura de Datos y Algoritmos Avanzados
+# Proyecto 3 de Estructura de Datos y Algoritmos Avanzados
 
 #### Integrantes:
 - Francy Jelvez.
