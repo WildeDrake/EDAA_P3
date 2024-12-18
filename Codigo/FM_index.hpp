@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
-#include <unordered_set>
+#include <sdsl/bit_vectors.hpp>
 #include <sdsl/suffix_arrays.hpp>
 #include <sdsl/wavelet_trees.hpp>
 
@@ -18,8 +18,8 @@ class FM_index
         FM_index(const std::vector<std::string> &docs);
 
         std::vector<uint64_t> locate(const std::string &s);
+
         double size(void);
-        int size_in_mb();
 };
 
 #endif

@@ -1,5 +1,11 @@
-#include "suffix_array.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <string>
+#include <unordered_set>
+#include <vector>
+#include <sdsl/suffix_arrays.hpp>
 
+#include "suffix_array.hpp"
 
 suffix_array::suffix_array(const std::vector<std::string> &docs)
 {
@@ -20,7 +26,6 @@ suffix_array::suffix_array(const std::vector<std::string> &docs)
     SA.resize(N);
     sdsl::algorithm::calculate_sa((unsigned char *) text.c_str(), N, SA);
 }
-
 
 std::vector<uint64_t> suffix_array::locate(const std::string &s)
 {
@@ -64,7 +69,7 @@ std::vector<uint64_t> suffix_array::locate(const std::string &s)
     return matches;
 }
 
-
-int suffix_array::size_in_mb() {
-    return size_in_mega_bytes(SA) + (doc_start.size()*sizeof(uint64_t) / 1048576) + (text.size() / 1048576);
+double suffix_array::size(void)
+{
+    return sdsl::size_in_mega_bytes(SA) + (doc_start.size() * sizeof(uint64_t) / 1048576) + (text.size() / 1048576);
 }

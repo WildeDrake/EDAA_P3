@@ -12,10 +12,6 @@
 
 #include "FM_index.hpp"
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e86108485d1651eb3bfb91d7ac781465c4be8254
 FM_index::FM_index(const std::vector<std::string> &docs)
 {
     // Create string of concatenated docs separated by ETX
@@ -29,7 +25,7 @@ FM_index::FM_index(const std::vector<std::string> &docs)
         text += docs[i] + ETX;
     }
 
-    std::ofstream t("concatenated.txt");
+    std::ofstream t(".concatenated.txt");
     // Check if t opened correctly
     if (t.is_open()) {
         t << text;
@@ -39,11 +35,9 @@ FM_index::FM_index(const std::vector<std::string> &docs)
         std::exit(EXIT_FAILURE);
     }
 
-    sdsl::construct(fm_index, "concatenated.txt", 1);
-    std::remove("concatenated.txt");
+    sdsl::construct(fm_index, ".concatenated.txt", 1);
+    std::remove(".concatenated.txt");
 }
-
-
 std::vector<uint64_t> FM_index::locate(const std::string &s)
 {
     uint64_t i, j;
@@ -63,11 +57,7 @@ std::vector<uint64_t> FM_index::locate(const std::string &s)
     return matches;
 }
 
-
-double FM_index::size(void) {
-    return fm_index.size();
-}
-
-int FM_index::size_in_mb(void) {
-    return size_in_mega_bytes(fm_index) + (doc_start.size()*sizeof(uint64_t) / 1048576);
+double FM_index::size(void)
+{
+    return sdsl::size_in_mega_bytes(fm_index) + (doc_start.size() * sizeof(uint64_t) / 1048576);
 }

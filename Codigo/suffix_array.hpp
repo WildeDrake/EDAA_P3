@@ -1,8 +1,6 @@
 #ifndef SUFFIX_ARRAY
 #define SUFFIX_ARRAY
 
-#include <algorithm>
-#include <unordered_set>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -17,8 +15,10 @@ class suffix_array
 
     public:
         suffix_array(const std::vector<std::string> &docs);
+
         std::vector<uint64_t> locate(const std::string &s);
-        int size_in_mb();
+
+	double size(void);
 };
 
 #endif
